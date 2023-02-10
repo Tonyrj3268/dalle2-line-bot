@@ -4,10 +4,13 @@ import openai
 import cv2
 import base64
 import numpy as np
+import configparser
 class dalle2:
     def __init__(self):
-        openai.organization = "org-tHt70UMGlNYxmVgdarPogPhh"
-        openai.api_key = "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"
+        config = configparser.ConfigParser()
+        config.read('config.ini')
+        openai.organization = config.get('dalle2', 'organization')
+        openai.api_key = config.get('dalle2', 'api_key')
 
     def json_to_img(json, download=False, name='some_image.png'):
         imgdata = base64.b64decode(json)

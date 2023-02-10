@@ -9,13 +9,15 @@ from linebot.exceptions import (
 from linebot.models import *
 import json
 import random
-from dalle2 import dalle2
+import dalle2
+import configparser
 app = Flask(__name__)
 
-# Channel Access Token
-line_bot_api = LineBotApi('BdimudProf4VkCVmh0C2jAIz1Q+gHGGjehIDN/aENEHbaER8RW2Lwof7bKDCBRVbi0qTmsTTfz5hZUjaGd/RpKbHJAffiO4NdnnEGINAUbdkVWT67s9ZE5iH6DUzypno/IPqWfZq1nx2zVBeLndLZwdB04t89/1O/w1cDnyilFU=')
-# Channel Secret
-handler = WebhookHandler('5b4a7c9c7d6fc61bc1461e1669ae4c87')
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+line_bot_api = LineBotApi(config.get('line-bot', 'channel_access_token'))
+handler = WebhookHandler(config.get('line-bot', 'channel_secret'))
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
