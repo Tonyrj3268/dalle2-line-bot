@@ -1,8 +1,11 @@
 import openai
+import configparser
 class chatgpt:
     def __init__(self):
-        openai.organization = "org-tHt70UMGlNYxmVgdarPogPhh"
-        openai.api_key = "sk-IM7S7Wzgs9ZCyBS6QsCoT3BlbkFJ5HQrrt0X6PIDBgjA3ZM"
+        config = configparser.ConfigParser()
+        config.read('config.ini')
+        openai.organization = config.get('open-ai', 'organization')
+        openai.api_key = config.get('open-ai', 'api_key')
 
     def translate(self,prompt):
         prompt = "請幫我翻譯以下文本成中文 " + prompt
@@ -13,5 +16,5 @@ class chatgpt:
         temperature=0.5
         )
         
-        text = response.choices[0].text
+        text = response.choices[0].text.split("\n\n")[1]
         return text

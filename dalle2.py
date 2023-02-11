@@ -9,8 +9,8 @@ class dalle2:
     def __init__(self):
         config = configparser.ConfigParser()
         config.read('config.ini')
-        openai.organization = config.get('dalle2', 'organization')
-        openai.api_key = config.get('dalle2', 'api_key')
+        openai.organization = config.get('open-ai', 'organization')
+        openai.api_key = config.get('open-ai', 'api_key')
 
     def json_to_img(json, download=False, name='some_image.png'):
         imgdata = base64.b64decode(json)
